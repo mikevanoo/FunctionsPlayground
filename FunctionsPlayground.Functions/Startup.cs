@@ -1,4 +1,7 @@
-﻿using FunctionsPlayground.Services;
+﻿using AutoMapper;
+using FluentValidation;
+using FunctionsPlayground.Models;
+using FunctionsPlayground.Services;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +13,16 @@ namespace FunctionsPlayground.Functions
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddTransient<IPersonService>(sp => new PersonService(new PersonValidator()));
+            // NOTE: not doing assembly scanning as don't know the impact on startup time in a functions app
+
+            // PersonService
+            builder.Services.AddTransient<AbstractValidator<PersonRequest>, PersonRequestValidator>();
+            builder.Services.AddTransient<IPersonService, PersonService>();
+
+            // AutoMapper
+            builder.Services.AddAutoMapper(expression => 
+                expression.AddProfile<PersonProfile>()
+            );
         }
     }
 }

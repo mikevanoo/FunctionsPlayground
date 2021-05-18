@@ -22,8 +22,8 @@ namespace FunctionsPlayground.Functions
         }
 
         [FunctionName(nameof(CreatePerson))]
-        public Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] Person person,
+        public async Task<ActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] PersonRequest person,
             ILogger log)
         {
             log.Log(LogLevel.Debug, person?.ToString());
@@ -32,12 +32,13 @@ namespace FunctionsPlayground.Functions
             var validationResult = _personService.Validate(person);
             if (!validationResult.IsValid)
             {
-                return Task.FromResult<IActionResult>(validationResult.ToBadRequest("Person could not be created."));
+                return validationResult.ToBadRequest("Person could not be created.");
             }
 
-            // TODO save
+            // save
+            var savedPerson = await _personService.Save(person);
 
-            return Task.FromResult<IActionResult>(new OkObjectResult(person));
+            return new OkObjectResult(savedPerson);
         }
     }
 }

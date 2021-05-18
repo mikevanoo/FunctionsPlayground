@@ -1,0 +1,21 @@
+{
+  "topics": [
+    {
+      "name": "person-topic",
+      "port": 60101,
+      "key": null,
+      "subscribers": [
+        {
+          "name": "personService",
+          "endpoint": "http://localhost:7072/runtime/webhooks/EventGrid?functionName=ProcessPerson",
+          "disableValidation": true,
+          "filter": {
+            "subjectBeginsWith": "/personService/personCreateRequest",
+            "subjectEndsWith": "",
+            "isSubjectCaseSensitive": true
+          }
+        }
+      ]
+    }
+  ]
+}
