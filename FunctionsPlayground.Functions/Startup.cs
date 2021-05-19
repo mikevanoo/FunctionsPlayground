@@ -15,6 +15,8 @@ namespace FunctionsPlayground.Functions
         {
             // NOTE: not doing assembly scanning as don't know the impact on startup time in a functions app
 
+            builder.Services.AddSingleton<IEventGridClientFactory, EventGridClientFactory>();
+
             // PersonService
             builder.Services.AddTransient<AbstractValidator<PersonRequest>, PersonRequestValidator>();
             builder.Services.AddTransient<IPersonService, PersonService>();

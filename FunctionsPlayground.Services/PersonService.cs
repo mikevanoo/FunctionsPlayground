@@ -12,11 +12,16 @@ namespace FunctionsPlayground.Services
     public class PersonService : IPersonService
     {
         private readonly AbstractValidator<PersonRequest> _validator;
+        private readonly IEventGridClientFactory _eventGridClientFactory;
         private readonly IMapper _autoMapper;
 
-        public PersonService(AbstractValidator<PersonRequest> validator, IMapper autoMapper)
+        public PersonService(
+            AbstractValidator<PersonRequest> validator,
+            IEventGridClientFactory eventGridClientFactory,
+            IMapper autoMapper)
         {
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
+            _eventGridClientFactory = eventGridClientFactory ?? throw new ArgumentNullException(nameof(eventGridClientFactory));
             _autoMapper = autoMapper ?? throw new ArgumentNullException(nameof(autoMapper));
         }
 
@@ -41,7 +46,7 @@ namespace FunctionsPlayground.Services
             };
 
             var topicHost = new Uri("https://localhost:60101/api/events").Authority;
-            using var eventGridClient = new EventGridClient(new TopicCredentials(null));
+            using var eventGridClient = _eventGridClientFactory.Create("whatever");
             await eventGridClient.PublishEventsAsync(topicHost, new[] { eventGridEvent });
 
             return person;
