@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A05BA4E8-745D-4B8B-BB35-8834E7AD167B}"
 	ProjectSection(SolutionItems) = preProject
 		eventgrid-simulator-config.json = eventgrid-simulator-config.json
+		README.txt = README.txt
 		RunEventGrid.bat = RunEventGrid.bat
 	EndProjectSection
 EndProject

@@ -9,5 +9,7 @@ namespace FunctionsPlayground.Services
         ValidationResult Validate(PersonRequest request);
 
         Task<Person> Save(PersonRequest request);
+
+        Task Process(Person person);
     }
 }

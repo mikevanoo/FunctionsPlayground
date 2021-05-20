@@ -13,15 +13,18 @@ namespace FunctionsPlayground.Services
     {
         private readonly IValidator<PersonRequest> _validator;
         private readonly IEventGridClientFactory _eventGridClientFactory;
+        private readonly IPersonRepository _personRepository;
         private readonly IMapper _autoMapper;
 
         public PersonService(
             IValidator<PersonRequest> validator,
             IEventGridClientFactory eventGridClientFactory,
+            IPersonRepository personRepository,
             IMapper autoMapper)
         {
             _validator = validator ?? throw new ArgumentNullException(nameof(validator));
             _eventGridClientFactory = eventGridClientFactory ?? throw new ArgumentNullException(nameof(eventGridClientFactory));
+            _personRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
             _autoMapper = autoMapper ?? throw new ArgumentNullException(nameof(autoMapper));
         }
 
@@ -50,6 +53,12 @@ namespace FunctionsPlayground.Services
             await eventGridClient.PublishEventsAsync(topicHost, new[] { eventGridEvent });
 
             return person;
+        }
+
+        public async Task Process(Person person)
+        {
+            // save to Cosmos
+            await _personRepository.Upsert(person);
         }
     }
 }

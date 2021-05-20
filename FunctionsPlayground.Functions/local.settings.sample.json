@@ -1,7 +1,13 @@
 {
-    "IsEncrypted": false,
-    "Values": {
-        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "FUNCTIONS_WORKER_RUNTIME": "dotnet"
-    }
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+  },
+  "PersonRepository": {
+    "databaseName": "PersonDb",
+    "connectionString": "<connection string>",
+    "containerName": "person",
+    "partitionKeyPath": "/id"
+  }
 }
