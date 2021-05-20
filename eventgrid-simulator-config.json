@@ -7,7 +7,7 @@
       "subscribers": [
         {
           "name": "personService",
-          "endpoint": "http://localhost:7072/runtime/webhooks/EventGrid?functionName=ProcessPerson",
+          "endpoint": "http://localhost:7071/runtime/webhooks/EventGrid?functionName=ProcessPerson",
           "disableValidation": true,
           "filter": {
             "subjectBeginsWith": "/personService/personCreateRequest",

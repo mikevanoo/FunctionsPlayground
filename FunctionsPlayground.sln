@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionsPlayground.Functions", "FunctionsPlayground.Functions\FunctionsPlayground.Functions.csproj", "{B8548314-3D6A-4D22-849C-26B03809CBC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionsPlayground.Models", "FunctionsPlayground.Models\FunctionsPlayground.Models.csproj", "{BA18AC0C-8F21-4A28-A1B7-524383238918}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionsPlayground.Models", "FunctionsPlayground.Models\FunctionsPlayground.Models.csproj", "{BA18AC0C-8F21-4A28-A1B7-524383238918}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionsPlayground.Services", "FunctionsPlayground.Services\FunctionsPlayground.Services.csproj", "{A85327B3-6B13-404A-989E-717099D40DA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionsPlayground.Services", "FunctionsPlayground.Services\FunctionsPlayground.Services.csproj", "{A85327B3-6B13-404A-989E-717099D40DA7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A05BA4E8-745D-4B8B-BB35-8834E7AD167B}"
 	ProjectSection(SolutionItems) = preProject

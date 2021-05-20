@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using FunctionsPlayground.Models;
 using FunctionsPlayground.Services;
@@ -26,7 +23,7 @@ namespace FunctionsPlayground.Functions
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] PersonRequest person,
             ILogger log)
         {
-            log.Log(LogLevel.Debug, person?.ToString());
+            log.LogInformation(person?.ToString());
 
             // validate
             var validationResult = _personService.Validate(person);
