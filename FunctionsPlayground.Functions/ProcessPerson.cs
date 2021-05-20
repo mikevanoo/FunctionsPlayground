@@ -15,6 +15,10 @@ namespace FunctionsPlayground.Functions
             var person = JsonConvert.DeserializeObject<Person>(eventGridEvent.Data?.ToString());
 
             log.LogInformation(person?.ToString());
+
+            // TODO store in Cosmos
+
+            // TODO advertise new person via EventGrid 
         }
     }
 }

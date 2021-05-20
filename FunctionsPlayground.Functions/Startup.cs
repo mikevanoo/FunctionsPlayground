@@ -18,7 +18,7 @@ namespace FunctionsPlayground.Functions
             builder.Services.AddSingleton<IEventGridClientFactory, EventGridClientFactory>();
 
             // PersonService
-            builder.Services.AddTransient<AbstractValidator<PersonRequest>, PersonRequestValidator>();
+            builder.Services.AddTransient<IValidator<PersonRequest>, PersonRequestValidator>();
             builder.Services.AddTransient<IPersonService, PersonService>();
 
             // AutoMapper

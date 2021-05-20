@@ -11,12 +11,12 @@ namespace FunctionsPlayground.Services
 {
     public class PersonService : IPersonService
     {
-        private readonly AbstractValidator<PersonRequest> _validator;
+        private readonly IValidator<PersonRequest> _validator;
         private readonly IEventGridClientFactory _eventGridClientFactory;
         private readonly IMapper _autoMapper;
 
         public PersonService(
-            AbstractValidator<PersonRequest> validator,
+            IValidator<PersonRequest> validator,
             IEventGridClientFactory eventGridClientFactory,
             IMapper autoMapper)
         {
