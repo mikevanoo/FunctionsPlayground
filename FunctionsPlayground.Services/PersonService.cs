@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using Azure.Messaging.EventGrid;
 using FluentValidation;
 using FluentValidation.Results;
 using FunctionsPlayground.Models;
-using Microsoft.Azure.EventGrid;
-using Microsoft.Azure.EventGrid.Models;
 
 namespace FunctionsPlayground.Services
 {
     public class PersonService : IPersonService
     {
         private readonly IValidator<PersonRequest> _validator;
-        private readonly IEventGridClientFactory _eventGridClientFactory;
+        private readonly IEventGridPublisherClientFactory _eventGridClientFactory;
         private readonly IPersonRepository _personRepository;
         private readonly IMapper _autoMapper;
 
         public PersonService(
             IValidator<PersonRequest> validator,
-            IEventGridClientFactory eventGridClientFactory,
+            IEventGridPublisherClientFactory eventGridClientFactory,
             IPersonRepository personRepository,
             IMapper autoMapper)
         {
@@ -38,19 +37,18 @@ namespace FunctionsPlayground.Services
             Person person = _autoMapper.Map<PersonRequest, Person>(request);
 
             // push to EventGrid
-            var eventGridEvent = new EventGridEvent
+            var eventGridEvent = new EventGridEvent(
+                subject: "/personService/personCreateRequest",
+                eventType: "Create Person", 
+                dataVersion: "1.0", 
+                data: new BinaryData(person))
             {
-                Id = Guid.NewGuid().ToString(),
-                EventType = "Create Person",
-                EventTime = DateTime.Now,
-                Subject = "/personService/personCreateRequest",
-                Data = person,
-                DataVersion = "1.0"
+                Id = Guid.NewGuid().ToString(), 
+                EventTime = DateTime.UtcNow
             };
-
-            var topicHost = new Uri("https://localhost:60101/api/events").Authority;
-            using var eventGridClient = _eventGridClientFactory.Create("whatever");
-            await eventGridClient.PublishEventsAsync(topicHost, new[] { eventGridEvent });
+            
+            var eventGridClient = _eventGridClientFactory.Create("https://localhost:60101/api/events", "whatever");
+            await eventGridClient.SendEventAsync(eventGridEvent);
 
             return person;
         }
